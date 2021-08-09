@@ -22,7 +22,7 @@ public class ProductService {
         product.setDescription(productDto.getDescription());
         product.setStartBiddingPrice(Integer.valueOf(productDto.getStartBiddingPrice()));
         product.setEndDateTime(LocalDateTime.parse(productDto.getEndDateTime()));
-//        product.setCategory(Category.valueOf(productDto.getCategory()));
+        product.setCategory(Enum.valueOf(Category.class, productDto.getCategory().toUpperCase()));
         productRepository.save(product);
 
     }
