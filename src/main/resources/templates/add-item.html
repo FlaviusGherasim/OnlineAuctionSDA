@@ -39,18 +39,18 @@
                 <input id="product_starting_price" th:field="*{startBiddingPrice}" name="startBiddingPrice" placeholder="PRODUCT STARTING PRICE" class="form-control input-md"
                        required="" type="number">
             </div>
+            <!-- showing errors area-->
+            <label th:if="${#fields.hasErrors('startBiddingPrice')}" th:class="'error'" th:errors="*{startBiddingPrice}"
+                   class="col-lg-4 control-label" style="color:red;" ></label>
         </div>
 
         <!-- Select Basic -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_category">PRODUCT category</label>
             <div class="col-md-4">
-                <select id="product_category" name="category" class="form-control">
-                    <option value="" selected disabled hidden> Please choose</option>
-                    <option>Electronics</option>
-                    <option>Auto</option>
-                    <option>Books</option>
-                    <option>Games</option>
+                <select name="product_category" id="product_category" th:field="*{category}">
+                    <option th:each="productCategory : ${T(com.example.onlineAuction.model.Category).values()}"
+                            th:value="${productCategory.name()}" th:text="${productCategory.name()}"></option>
                 </select>
             </div>
         </div>

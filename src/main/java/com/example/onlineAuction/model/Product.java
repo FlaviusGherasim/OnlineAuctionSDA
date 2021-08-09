@@ -17,7 +17,7 @@ public class Product {
     private String name;
     private String description;
     private Integer startBiddingPrice;
-    @Enumerated(value = EnumType.STRING)
+//    @Enumerated(value = EnumType.STRING)
     private Category category;
     private LocalDateTime endDateTime;
 }
