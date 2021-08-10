@@ -20,4 +20,6 @@ public class Product {
 //    @Enumerated(value = EnumType.STRING)
     private Category category;
     private LocalDateTime endDateTime;
+    @Lob
+    private byte[] image;
 }

@@ -8,7 +8,7 @@
     <title>AddItem</title>
 </head>
 <body>
-<form class="form-horizontal" method="post" th:object="${productDto}" th:action="@{/addItem}">
+<form class="form-horizontal" method="post" th:object="${productDto}" th:action="@{/addItem}" enctype="multipart/form-data">
     <fieldset>
 
         <!-- Form Name -->
@@ -16,7 +16,7 @@
 
         <!-- product name area-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_name">PRODUCT Name</label>
+            <label class="col-md-4 control-label" for="product_name">Product Name</label>
             <div class="col-md-4">
                 <input id="product_name" th:field="*{name}" placeholder="PRODUCT NAME" class="form-control input-md"
                        required="" type="text">
@@ -25,7 +25,7 @@
 
         <!-- product description area-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_description">PRODUCT Description</label>
+            <label class="col-md-4 control-label" for="product_description">Product Description</label>
             <div class="col-md-4">
                 <input id="product_description" th:field="*{description}" name="description" placeholder="PRODUCT DESCRIPTION" class="form-control input-md"
                        required="" type="text">
@@ -34,7 +34,7 @@
 
         <!-- product starting bidding area-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_starting_price">PRODUCT starting price</label>
+            <label class="col-md-4 control-label" for="product_starting_price">Product Starting Price</label>
             <div class="col-md-4">
                 <input id="product_starting_price" th:field="*{startBiddingPrice}" name="startBiddingPrice" placeholder="PRODUCT STARTING PRICE" class="form-control input-md"
                        required="" type="number">
@@ -46,7 +46,7 @@
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_category">PRODUCT category</label>
+            <label class="col-md-4 control-label" for="product_category">Product Category</label>
             <div class="col-md-4">
                 <select name="product_category" id="product_category" th:field="*{category}">
                     <option th:each="productCategory : ${T(com.example.onlineAuction.model.Category).values()}"
@@ -64,11 +64,20 @@
             </div>
         </div>
 
+        <!-- product image area-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_image">Product Image</label>
+            <div class="col-md-4">
+                <input id="product_image" name="productImage" placeholder="PRODUCT NAME" class="form-control input-md"
+                       required="" type="file" accept="image/png, image/jpg, image/jpeg">
+            </div>
+        </div>
+
         <!-- Button -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
             <div class="col-md-4">
-                <button id="singlebutton" name="singlebutton" type="submit" class="btn btn-primary">AddButton</button>
+                <button id="singlebutton" name="singlebutton" type="submit" class="btn btn-primary">AddItem</button>
             </div>
         </div>
     </fieldset>
