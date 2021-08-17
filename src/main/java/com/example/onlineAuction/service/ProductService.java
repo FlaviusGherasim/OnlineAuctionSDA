@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -36,6 +37,12 @@ public class ProductService {
         }
         return result;
     }
+//    public List<ProductDto> getAllProductDtosWithStream() {
+//        List<Product> productList = productRepository.findAll();
+//        return productList.stream()
+//                .map(productMapper::map)
+//                .collect(Collectors.toList());
+//    }
 
     public Optional<ProductDto> getProductDtoById(String productId) {
         Optional<Product> optionalProductFound = productRepository.findById(Integer.valueOf(productId));

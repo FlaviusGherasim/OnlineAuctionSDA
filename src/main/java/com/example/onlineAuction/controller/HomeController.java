@@ -5,6 +5,7 @@ import com.example.onlineAuction.dto.UserDto;
 import com.example.onlineAuction.service.ProductService;
 import com.example.onlineAuction.service.UserService;
 import com.example.onlineAuction.validator.ProductDtoValidator;
+import com.example.onlineAuction.validator.UserDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,9 @@ public class HomeController {
     @Autowired
     private ProductDtoValidator productDtoValidator;
 
+    @Autowired
+    private UserDtoValidator userDtoValidator;
+
     @GetMapping(value = "/addItem")
     public String getAddItemPage(Model model) {
         System.out.println("Rulez get pe /addItem");
@@ -49,38 +53,56 @@ public class HomeController {
         return "redirect:/addItem"; //rulez redirect catre get
     }
 
-    @GetMapping(value = "/addUser")
-    public String getAddUserPage(Model model) {
-        UserDto userDto = new UserDto();
-        model.addAttribute("userDto", userDto);
-        return "addUser";
-    }
+//    @GetMapping(value = "/addUser")
+//    public String getAddUserPage(Model model) {
+//        UserDto userDto = new UserDto();
+//        model.addAttribute("userDto", userDto);
+//        return "addUser";
+//    }
 
-    @PostMapping(value = "/addUser")
-    public String postAddItemPage(Model model, UserDto userDto) {
-        System.out.println("Am primit: " + userDto);
-        userService.addUser(userDto);
-        return "addUser";
-    }
+//    @PostMapping(value = "/addUser")
+//    public String postAddItemPage(Model model, UserDto userDto) {
+//        System.out.println("Am primit: " + userDto);
+//        userService.addUser(userDto);
+//        return "addUser";
+//    }
 
     @GetMapping(value = "/home")
     public String getHome(Model model) {
-        List<ProductDto> productDtoList=productService.getAllProductDtos();
+        List<ProductDto> productDtoList = productService.getAllProductDtos();
         model.addAttribute("products", productDtoList);
         return "home";
     }
 
     @GetMapping(value = "/item/{productId}")
-    public String getProductPage(@PathVariable(value="productId") String productId, Model model)
-    {
+    public String getProductPage(@PathVariable(value = "productId") String productId, Model model) {
         Optional<ProductDto> optionalProductDtoFound = productService.getProductDtoById(productId);
-        if(!optionalProductDtoFound.isPresent())
-        {
+        if (!optionalProductDtoFound.isPresent()) {
             return "errorPage";
         }
-        ProductDto productDtoFound= optionalProductDtoFound.get();
+        ProductDto productDtoFound = optionalProductDtoFound.get();
         model.addAttribute("product", productDtoFound);
         return "viewItem";
+    }
+
+    @GetMapping(value = "/registration")
+    public String getRegistrationPage(Model model) {
+
+        UserDto userDto = new UserDto();
+        model.addAttribute("userDto", userDto);
+        return "registration";
+    }
+
+    @PostMapping(value = "/registration")
+    public String postRegistrationPage(Model model, UserDto userDto, BindingResult bindingResult)
+    {
+        userDtoValidator.validate(userDto, bindingResult);
+        if(bindingResult.hasErrors())
+        {
+            return "registration";
+        }
+        userService.addUser(userDto);
+        return "redirect:/home";
     }
 
 }
