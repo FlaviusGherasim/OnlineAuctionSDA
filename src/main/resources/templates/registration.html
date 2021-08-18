@@ -32,6 +32,8 @@
             <div class="controls">
                 <input type="text" id="firstName" th:field="*{firstName}" placeholder="First Name" class="input-xlarge">
                 <p class="help-block"></p>
+                <label th:if="${#fields.hasErrors('firstName')}" th:class="'error'"
+                       th:errors="*{firstName}" class="col-lg-4 control-label" style="color:red;" ></label>
             </div>
         </div>
 
@@ -41,6 +43,8 @@
             <div class="controls">
                 <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last Name" class="input-xlarge">
                 <p class="help-block"></p>
+                <label th:if="${#fields.hasErrors('lastName')}" th:class="'error'"
+                       th:errors="*{lastName}" class="col-lg-4 control-label" style="color:red;" ></label>
             </div>
         </div>
 

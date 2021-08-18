@@ -94,15 +94,19 @@ public class HomeController {
     }
 
     @PostMapping(value = "/registration")
-    public String postRegistrationPage(Model model, UserDto userDto, BindingResult bindingResult)
-    {
+    public String postRegistrationPage(Model model, UserDto userDto, BindingResult bindingResult) {
         userDtoValidator.validate(userDto, bindingResult);
-        if(bindingResult.hasErrors())
-        {
+        if (bindingResult.hasErrors()) {
             return "registration";
         }
         userService.addUser(userDto);
         return "redirect:/home";
+    }
+
+    @GetMapping(value = "/login")
+    public String getLoginPage(Model model) {
+
+        return "login";
     }
 
 }
