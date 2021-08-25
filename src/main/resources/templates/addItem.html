@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}"/>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/fontawesome.css}"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/tooplate-main.css}"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/owl.css}"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/custom.css}"/>
     <meta charset="UTF-8">
     <title>AddItem</title>
 </head>
@@ -11,8 +23,18 @@
 <form class="form-horizontal" method="post" th:object="${productDto}" th:action="@{/addItem}" enctype="multipart/form-data">
     <fieldset>
 
-        <!-- Form Name -->
-        <legend>PRODUCTS</legend>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" aria-current="page" href="/home">Home</a>
+                        <a class="nav-link active" href="/addItem">Add Item</a>
+                        <a class="nav-link" href="/registration">Registration</a>
+                        <a class="nav-link" href="/login">Login</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
         <!-- product name area-->
         <div class="form-group">
@@ -27,7 +49,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_description">Product Description</label>
             <div class="col-md-4">
-                <input id="product_description" th:field="*{description}" name="description" placeholder="PRODUCT DESCRIPTION" class="form-control input-md"
+                <input id="product_description" th:field="*{description}" placeholder="PRODUCT DESCRIPTION" class="form-control input-md"
                        required="" type="text">
             </div>
         </div>
@@ -48,7 +70,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_category">Product Category</label>
             <div class="col-md-4">
-                <select name="product_category" id="product_category" th:field="*{category}">
+                <select class="form-control" name="product_category" id="product_category" th:field="*{category}">
                     <option th:each="productCategory : ${T(com.example.onlineAuction.model.Category).values()}"
                             th:value="${productCategory.name()}" th:text="${productCategory.name()}"></option>
                 </select>
@@ -61,6 +83,8 @@
             <div class="col-md-4">
                 <input id="auction_end_time" th:field="*{endDateTime}" name="endDateTime" placeholder="Auction Ending Date" class="form-control input-md"
                        required="" type="datetime-local">
+                <label th:if="${#fields.hasErrors('endDateTime')}" th:class="'error'" th:errors="*{endDateTime}"
+                       class="col-lg-4 control-label" style="color:red;" ></label>
             </div>
         </div>
 

@@ -1,16 +1,24 @@
 package com.example.onlineAuction.validator;
 
 import com.example.onlineAuction.dto.UserDto;
+import com.example.onlineAuction.model.User;
+import com.example.onlineAuction.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 @Service
 public class UserDtoValidator {
+    @Autowired
+    private UserRepository userRepository;
+
     public void validate(UserDto userDto, BindingResult bindingResult){
 
         validateEmail(userDto, bindingResult);
@@ -25,6 +33,13 @@ public class UserDtoValidator {
 
         if(!matcher.matches()){
             FieldError fieldError= new FieldError("userDto","email", "Invalid email.");
+            bindingResult.addError(fieldError);
+        }
+        Optional<User> userOptional= userRepository.findByEmail(userDto.getEmail());
+
+        if(userOptional.isPresent())
+        {
+            FieldError fieldError= new FieldError("userDto","email", "Email is already in use.");
             bindingResult.addError(fieldError);
         }
     }

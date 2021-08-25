@@ -21,6 +21,19 @@
 <body>
 
 <div class="featured container no-gutter">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                    <a class="nav-link" href="/addItem">Add Item</a>
+                    <a class="nav-link" href="/registration">Registration</a>
+                    <a class="nav-link" href="/login">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="row posts">
 
         <div id="1" class="item new col-md-4" th:each="product:${products}">
@@ -28,7 +41,8 @@
                 <div class="featured-item">
                     <img th:src="${'data:image/png;base64,'+product.getImage()}" alt="">
                     <h4 th:text="${product.getName()}"></h4>
-                    <h6 th:text="${product.getStartBiddingPrice()}"></h6>
+                    <h6 th:if="${product.currentBidPrice == '0'}" th:text="${product.startBiddingPrice}+ '$'"></h6>
+                    <h6 th:if="${product.currentBidPrice != '0'}" th:text="${product.currentBidPrice}+ '$'"></h6>
                 </div>
             </a>
         </div>

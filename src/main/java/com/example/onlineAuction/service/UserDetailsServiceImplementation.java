@@ -4,6 +4,7 @@ import com.example.onlineAuction.model.User;
 import com.example.onlineAuction.model.UserRole;
 import com.example.onlineAuction.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,6 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(email, user.getPassword(), grantedAuthorities);
 
-
     }
+
 }

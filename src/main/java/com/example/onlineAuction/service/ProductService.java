@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -28,11 +27,11 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public List<ProductDto> getAllProductDtos() {
+    public List<ProductDto> getAllProductDtos(String email) {
         List<Product> productList = productRepository.findAll();
         List<ProductDto> result = new ArrayList<>();
         for (Product product : productList) {
-            ProductDto productDto = productMapper.map(product);
+            ProductDto productDto = productMapper.map(product, email);
             result.add(productDto);
         }
         return result;
@@ -44,13 +43,13 @@ public class ProductService {
 //                .collect(Collectors.toList());
 //    }
 
-    public Optional<ProductDto> getProductDtoById(String productId) {
+    public Optional<ProductDto> getProductDtoById(String productId, String email) {
         Optional<Product> optionalProductFound = productRepository.findById(Integer.valueOf(productId));
         if (!optionalProductFound.isPresent()) {
             return Optional.empty();
         }
         Product productFound = optionalProductFound.get();
-        ProductDto productDto = productMapper.map(productFound);
+        ProductDto productDto = productMapper.map(productFound, email);
         return Optional.of(productDto);
     }
 }

@@ -5,6 +5,7 @@
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/custom.css}"/>
     <title>Title</title>
 </head>
 <body>
@@ -13,6 +14,10 @@
     <fieldset>
         <div id="legend">
             <legend class="">Login</legend>
+        </div>
+
+        <div class="control-group error">
+            <p th:if="${loginError}">Wrong username or password</p>
         </div>
 
         <div class="control-group">

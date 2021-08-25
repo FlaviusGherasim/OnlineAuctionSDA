@@ -7,6 +7,7 @@ import com.example.onlineAuction.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class UserService {
     @Autowired
@@ -17,7 +18,7 @@ public class UserService {
 
     public void addUser(UserDto userDto)
     {
-        User user= userMapper.map(userDto);
-        userRepository.save(user);
+            User user= userMapper.map(userDto);
+            userRepository.save(user);
     }
 }
