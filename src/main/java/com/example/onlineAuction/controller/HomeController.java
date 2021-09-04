@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.onlineAuction.service.BidService;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,7 +68,7 @@ public class HomeController {
 
     @GetMapping({"/home", "/"})
     public String getHome(Model model, Authentication authentication) {
-        List<ProductDto> productDtoList = productService.getAllProductDtos(authentication.getName());
+        List<ProductDto> productDtoList = productService.getAllActiveProductDtos(authentication.getName());
         model.addAttribute("products", productDtoList);
         return "home";
     }
@@ -133,6 +134,13 @@ public class HomeController {
 
         model.addAttribute("loginError", true);
         return "login";
+    }
+
+    @GetMapping("/myProducts")
+    public String getMyProductsPage(Model model, Authentication authentication) {
+        List<ProductDto> productDtoList = productService.getProductDtosFor(authentication.getName());
+        model.addAttribute("products", productDtoList);
+        return "myProducts";
     }
 
 }

@@ -25,8 +25,8 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a sec:authorize="isAuthenticated()" class="nav-link active" aria-current="page" href="/home">Home</a>
-                    <a sec:authorize="hasRole('ROLE_BIDDER')" class="nav-link" aria-current="page" href="/myProducts">My Products</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" href="/home">Home</a>
+                    <a sec:authorize="hasRole('ROLE_BIDDER')" class="nav-link active" aria-current="page" href="/myProducts">My Products</a>
                     <a sec:authorize="hasRole('ROLE_SELLER')" class="nav-link" href="/addItem">Add Item</a>
                     <a sec:authorize="isAnonymous()" class="nav-link" href="/registration">Registration</a>
                     <a sec:authorize="isAnonymous()" class="nav-link" href="/login">Login</a>

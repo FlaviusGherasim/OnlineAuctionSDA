@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}"/>
 
 
@@ -20,26 +17,31 @@
     <title>AddItem</title>
 </head>
 <body>
-<form class="form-horizontal" method="post" th:object="${productDto}" th:action="@{/addItem}" enctype="multipart/form-data">
-    <fieldset>
+<div class="featured container no-gutter">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link" aria-current="page" href="/home">Home</a>
-                        <a class="nav-link active" href="/addItem">Add Item</a>
-                        <a class="nav-link" href="/registration">Registration</a>
-                        <a class="nav-link" href="/login">Login</a>
-                    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" href="/home">Home</a>
+                    <a sec:authorize="hasRole('ROLE_BIDDER')" class="nav-link" aria-current="page" href="/myProducts">My Products</a>
+                    <a sec:authorize="hasRole('ROLE_SELLER')" class="nav-link active" href="/addItem">Add Item</a>
+                    <a sec:authorize="isAnonymous()" class="nav-link" href="/registration">Registration</a>
+                    <a sec:authorize="isAnonymous()" class="nav-link" href="/login">Login</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" href="/logout">Logout</a>
+
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
+<form class="form-horizontal addItemForm" method="post" th:object="${productDto}" th:action="@{/addItem}" enctype="multipart/form-data">
+
+    <div class="addItemSection">
         <!-- product name area-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_name">Product Name</label>
-            <div class="col-md-4">
+            <label class="control-label" for="product_name">Product Name</label>
+            <div class="">
                 <input id="product_name" th:field="*{name}" placeholder="PRODUCT NAME" class="form-control input-md"
                        required="" type="text">
             </div>
@@ -47,8 +49,8 @@
 
         <!-- product description area-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_description">Product Description</label>
-            <div class="col-md-4">
+            <label class="control-label" for="product_description">Product Description</label>
+            <div class="">
                 <input id="product_description" th:field="*{description}" placeholder="PRODUCT DESCRIPTION" class="form-control input-md"
                        required="" type="text">
             </div>
@@ -56,8 +58,8 @@
 
         <!-- product starting bidding area-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_starting_price">Product Starting Price</label>
-            <div class="col-md-4">
+            <label class=" control-label" for="product_starting_price">Product Starting Price</label>
+            <div class="">
                 <input id="product_starting_price" th:field="*{startBiddingPrice}" name="startBiddingPrice" placeholder="PRODUCT STARTING PRICE" class="form-control input-md"
                        required="" type="number">
             </div>
@@ -68,8 +70,8 @@
 
         <!-- Select Basic -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="product_category">Product Category</label>
-            <div class="col-md-4">
+            <label class="control-label" for="product_category">Product Category</label>
+            <div class="">
                 <select class="form-control" name="product_category" id="product_category" th:field="*{category}">
                     <option th:each="productCategory : ${T(com.example.onlineAuction.model.Category).values()}"
                             th:value="${productCategory.name()}" th:text="${productCategory.name()}"></option>
@@ -80,7 +82,7 @@
         <!-- auction ending date area-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="auction_end_time">Auction End Date and Time</label>
-            <div class="col-md-4">
+            <div class="">
                 <input id="auction_end_time" th:field="*{endDateTime}" name="endDateTime" placeholder="Auction Ending Date" class="form-control input-md"
                        required="" type="datetime-local">
                 <label th:if="${#fields.hasErrors('endDateTime')}" th:class="'error'" th:errors="*{endDateTime}"
@@ -91,7 +93,7 @@
         <!-- product image area-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_image">Product Image</label>
-            <div class="col-md-4">
+            <div class="">
                 <input id="product_image" name="productImage" placeholder="PRODUCT NAME" class="form-control input-md"
                        required="" type="file" accept="image/png, image/jpg, image/jpeg">
             </div>
@@ -100,11 +102,12 @@
         <!-- Button -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
-            <div class="col-md-4">
+            <div class="">
                 <button id="singlebutton" name="singlebutton" type="submit" class="btn btn-primary">AddItem</button>
             </div>
         </div>
-    </fieldset>
+    </div>
 </form>
+</div>
 </body>
 </html>
